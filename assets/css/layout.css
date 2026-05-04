@@ -207,8 +207,11 @@ main {
   justify-self: center;
 }
 
+/*
+  Slightly wider now that Return to top lives inside the footer panel.
+*/
 .footer-social {
-  inline-size: min(100%, 44rem);
+  inline-size: min(100%, 52rem);
 }
 
 /*
@@ -225,7 +228,7 @@ main {
 }
 
 .footer-flags img {
-  inline-size: clamp(3rem, 10vw, 4.5rem);
+  inline-size: clamp(2.25rem, 7.5vw, 3.4rem);
   block-size: auto;
   border: 1px solid var(--color-border);
   border-radius: 0.25rem;
