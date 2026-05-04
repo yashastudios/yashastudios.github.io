@@ -226,23 +226,17 @@
     </section>
   </main>
 
-  <!--
+    <!--
     Site footer.
-    Contains the return-to-top control, social panel, flag row, and legal text.
+    Contains the social panel, return-to-top control, flag row, and legal text.
   -->
   <footer class="site-footer">
-    <!-- Footer-level page movement control.
-         This avoids an intrusive floating button while still making return navigation easy. -->
-    <a class="return-to-top" href="#top">
-      Return to top
-      <span class="return-to-top__icon" aria-hidden="true"></span>
-    </a>
-
     <!--
       Footer social panel.
       Icons are visually icon-only, but each link still needs an accessible label.
+      The Return to top control lives here so it feels incorporated into the footer.
     -->
-    <div class="footer-social" aria-label="Yasha Studios social links">
+    <div class="footer-social" aria-label="Yasha Studios footer links">
       <a class="footer-social__brand" href="/" aria-label="Yasha Studios home">
         <span class="footer-social__monogram" aria-hidden="true"></span>
       </a>
@@ -275,7 +269,11 @@
         </li>
         <li>
           <a class="footer-social__link" href="#" aria-label="Ko-fi">
-            <img src="/assets/social-icons/kofi.svg" alt="">
+            <img
+              class="footer-social__icon--brand-color"
+              src="/assets/social-icons/kofi.svg"
+              alt=""
+            >
           </a>
         </li>
         <li>
@@ -284,11 +282,17 @@
           </a>
         </li>
       </ul>
+
+      <!-- Footer-level page movement control. -->
+      <a class="return-to-top footer-social__top-link" href="#top">
+        Return to top
+        <span class="return-to-top__icon" aria-hidden="true"></span>
+      </a>
     </div>
 
     <!--
       Values/identity flag row.
-      These flags are meaningful content, so each image uses descriptive alt text.
+      These flags are meaningful content, so each image should identify the flag.
     -->
     <div class="footer-flags" aria-label="Flags">
       <img src="/assets/flag-icons/ukrainian-flag.svg" alt="Ukrainian flag">
