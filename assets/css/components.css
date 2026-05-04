@@ -1,0 +1,625 @@
+/* ==========================================================================
+   Yasha Studios — Component Styles
+   --------------------------------------------------------------------------
+   This file contains reusable visual components:
+   - Brand masks
+   - Pull-tab navigation
+   - Mobile navigation
+   - Theme toggle
+   - Buttons
+   - Project cards
+   - Status badges
+   - Footer/social panel
+   - Return-to-top control
+
+   Large page-region layout belongs in layout.css.
+   Homepage-only composition belongs in pages/home.css.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Brand marks
+   --------------------------------------------------------------------------
+   The wordmark and monogram SVGs use currentColor-friendly artwork.
+   We apply them as CSS masks so the marks can inherit theme colors cleanly.
+   ========================================================================== */
+
+.site-header__monogram,
+.footer-social__monogram,
+.hero__wordmark {
+  display: block;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.site-header__monogram,
+.footer-social__monogram {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  mask-image: url("/assets/images/monogram.svg");
+  -webkit-mask-image: url("/assets/images/monogram.svg");
+}
+
+.hero__wordmark {
+  color: var(--color-text);
+  mask-image: url("/assets/images/wordmark.svg");
+  -webkit-mask-image: url("/assets/images/wordmark.svg");
+}
+
+
+/* ==========================================================================
+   Header brand link
+   ========================================================================== */
+
+.site-header__brand {
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.site-header__brand:hover {
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================================
+   Desktop pull-tab navigation
+   --------------------------------------------------------------------------
+   The layout file reserves vertical space for tab movement.
+   These rules create the actual hanging file-folder-tab effect.
+   ========================================================================== */
+
+.site-nav__list {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.5rem, 1.8vw, 1rem);
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__item {
+  display: flex;
+}
+
+/*
+  Equal-width tabs keep the nav calm and intentional even when labels have
+  different lengths.
+*/
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-inline-size: 8.5rem;
+  min-block-size: 4.8rem;
+  padding: 1rem 1.15rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-block-start: 0;
+  border-radius: 0 0 var(--radius-medium) var(--radius-medium);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-subtle);
+  color: var(--color-text);
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-decoration: none;
+  transform: translateY(-1.3rem);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-medium);
+}
+
+/*
+  Hover and keyboard focus both pull the tab down slightly.
+  This keeps the interaction available without relying only on mouse hover.
+*/
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-accent);
+  transform: translateY(-0.85rem);
+}
+
+/*
+  Future page support:
+  Add aria-current="page" to the active nav link on Projects, Resources, About.
+*/
+.site-nav__link[aria-current="page"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text-on-accent);
+  transform: translateY(-0.45rem);
+}
+
+.site-nav__link[aria-current="page"]:hover,
+.site-nav__link[aria-current="page"]:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-text-on-accent);
+}
+
+
+/* ==========================================================================
+   Theme toggle
+   --------------------------------------------------------------------------
+   Icon-only control, so the HTML aria-label does the accessible naming.
+   The visible icon changes after theme.js updates data-theme on the html tag.
+   ========================================================================== */
+
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-subtle);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--color-border-strong);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.theme-toggle__icon--sun {
+  mask-image: url("/assets/lucide-icons/sun.svg");
+  -webkit-mask-image: url("/assets/lucide-icons/sun.svg");
+}
+
+.theme-toggle__icon--moon {
+  mask-image: url("/assets/lucide-icons/moon.svg");
+  -webkit-mask-image: url("/assets/lucide-icons/moon.svg");
+}
+
+/* Default state assumes light theme: show moon because clicking switches dark. */
+.theme-toggle__icon--sun {
+  opacity: 0;
+  transform: scale(0.75) rotate(-20deg);
+}
+
+.theme-toggle__icon--moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* In dark mode: show sun because clicking switches light. */
+html[data-theme="dark"] .theme-toggle__icon--sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+html[data-theme="dark"] .theme-toggle__icon--moon {
+  opacity: 0;
+  transform: scale(0.75) rotate(20deg);
+}
+
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.button,
+.return-to-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-block-size: 2.75rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 750;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.button:hover,
+.return-to-top:hover,
+.button:focus-visible,
+.return-to-top:focus-visible {
+  transform: translateY(-1px);
+}
+
+.button--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  box-shadow: var(--shadow-subtle);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-text-on-accent);
+}
+
+.button--primary:active {
+  background: var(--color-accent-active);
+  border-color: var(--color-accent-active);
+  transform: translateY(0);
+}
+
+.button--secondary,
+.return-to-top {
+  background: var(--color-surface-raised);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.button--secondary:hover,
+.button--secondary:focus-visible,
+.return-to-top:hover,
+.return-to-top:focus-visible {
+  border-color: var(--color-border-strong);
+  color: var(--color-accent);
+}
+
+.button__icon,
+.return-to-top__icon {
+  display: inline-block;
+  inline-size: 1rem;
+  block-size: 1rem;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.button__icon--down {
+  mask-image: url("/assets/lucide-icons/chevron-down.svg");
+  -webkit-mask-image: url("/assets/lucide-icons/chevron-down.svg");
+}
+
+.button__icon--external {
+  mask-image: url("/assets/lucide-icons/arrow-up-right.svg");
+  -webkit-mask-image: url("/assets/lucide-icons/arrow-up-right.svg");
+}
+
+.return-to-top__icon {
+  mask-image: url("/assets/lucide-icons/chevron-up.svg");
+  -webkit-mask-image: url("/assets/lucide-icons/chevron-up.svg");
+}
+
+
+/* ==========================================================================
+   Project cards
+   --------------------------------------------------------------------------
+   Homepage cards are equal-height because layout.css stretches the grid items.
+   This component keeps internal spacing consistent across cards.
+   ========================================================================== */
+
+.project-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 1.2rem;
+  min-block-size: 100%;
+  padding: clamp(1.2rem, 3vw, 1.6rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+}
+
+.project-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.project-card__icon {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+/*
+  These SVGs are loaded as img elements.
+  If an icon ever looks wrong in dark mode, swap it to a CSS mask component.
+*/
+.project-card__icon img {
+  inline-size: 1.35rem;
+  block-size: 1.35rem;
+  opacity: 0.82;
+}
+
+.project-card__category {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.project-card__body {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.project-card__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  letter-spacing: -0.03em;
+}
+
+.project-card__tagline {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.project-card__description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.project-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-card__status {
+  margin: 0;
+}
+
+.project-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+
+/* ==========================================================================
+   Status badges
+   --------------------------------------------------------------------------
+   Badges are text-first. Color supports the label but does not carry meaning
+   by itself.
+   ========================================================================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2rem;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   Footer/social panel
+   --------------------------------------------------------------------------
+   The panel floats like a card but has square top corners and rounded bottom
+   corners, matching the locked design direction.
+   ========================================================================== */
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border: 1px solid var(--color-border);
+  border-radius: 0 0 var(--radius-large) var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.footer-social__brand {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.footer-social__brand:hover,
+.footer-social__brand:focus-visible {
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.footer-social__list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  padding: 0;
+  list-style: none;
+}
+
+.footer-social__link {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.footer-social__link:hover,
+.footer-social__link:focus-visible {
+  background: var(--color-accent-soft);
+  border-color: var(--color-border);
+  transform: translateY(-1px);
+}
+
+.footer-social__link img {
+  inline-size: 2rem;
+  block-size: 2rem;
+}
+
+
+/* ==========================================================================
+   Mobile navigation/component adjustments
+   --------------------------------------------------------------------------
+   Narrow screens get clear text navigation instead of forced pull-tabs.
+   ========================================================================== */
+
+@media (max-width: 46rem) {
+  .site-header__brand,
+  .theme-toggle {
+    inline-size: 2.6rem;
+    block-size: 2.6rem;
+  }
+
+  .site-nav__list {
+    justify-content: stretch;
+    gap: 0.5rem;
+  }
+
+  .site-nav__item {
+    flex: 1 1 0;
+  }
+
+  .site-nav__link {
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+    inline-size: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    box-shadow: none;
+    font-size: 0.95rem;
+    transform: none;
+  }
+
+  .site-nav__link:hover,
+  .site-nav__link:focus-visible,
+  .site-nav__link[aria-current="page"] {
+    transform: none;
+  }
+
+  .project-card__actions {
+    align-items: stretch;
+  }
+
+  .project-card__actions .button {
+    flex: 1 1 100%;
+  }
+
+  .footer-social {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-social__list {
+    justify-content: center;
+  }
+}
+
+
+/* ==========================================================================
+   Reduced motion refinements
+   --------------------------------------------------------------------------
+   The global reduced-motion rule already shortens transitions.
+   These rules also remove decorative movement where practical.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__brand:hover,
+  .theme-toggle:hover,
+  .button:hover,
+  .return-to-top:hover,
+  .project-card:hover,
+  .footer-social__brand:hover,
+  .footer-social__link:hover {
+    transform: none;
+  }
+}
