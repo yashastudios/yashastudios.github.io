@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Yasha Studios — Layout Styles
+   --------------------------------------------------------------------------
+   This file controls the large page regions:
+   - Header/header spacing
+   - Main content flow
+   - Hero placement
+   - Homepage project grid placement
+   - Footer placement
+   - Footer flag row placement
+
+   Reusable visual components belong in components.css.
+   Homepage-only fine-tuning belongs in pages/home.css.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Layout tokens
+   --------------------------------------------------------------------------
+   These values reserve room for the desktop pull-tab navigation.
+   The tabs themselves will be styled in components.css.
+   ========================================================================== */
+
+:root {
+  --header-bar-height: 4.25rem;
+  --header-tab-reserve: 3.25rem;
+  --header-reserved-height: calc(var(--header-bar-height) + var(--header-tab-reserve));
+
+  --section-block-padding: clamp(3rem, 8vw, 6rem);
+  --section-inline-padding: var(--page-gutter);
+}
+
+
+/* ==========================================================================
+   Site header
+   --------------------------------------------------------------------------
+   The header keeps enough vertical space for:
+   - The top strip/bar
+   - Default nav tabs
+   - Hover/focus tab movement
+   - The active tab hanging lower than the others
+
+   This prevents the hero from jumping when nav tabs move.
+   ========================================================================== */
+
+.site-header {
+  position: relative;
+  z-index: 10;
+  min-block-size: var(--header-reserved-height);
+  padding-inline: var(--page-gutter);
+}
+
+/* The visual top strip behind the brand, nav, and theme toggle. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--header-bar-height);
+  background: var(--color-surface);
+  border-block-end: 1px solid var(--color-border);
+  box-shadow: var(--shadow-subtle);
+}
+
+/*
+  Main header content row.
+  The nav sits in the center column so the brand and theme toggle can flank it.
+*/
+.site-header__bar {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(1rem, 3vw, 2rem);
+  max-inline-size: var(--content-max-width);
+  min-block-size: var(--header-bar-height);
+  margin-inline: auto;
+}
+
+.site-header__brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+}
+
+.site-nav {
+  justify-self: center;
+  align-self: start;
+}
+
+.theme-toggle {
+  align-self: center;
+}
+
+
+/* ==========================================================================
+   Main content
+   ========================================================================== */
+
+main {
+  isolation: isolate;
+}
+
+
+/* ==========================================================================
+   Hero layout
+   --------------------------------------------------------------------------
+   The hero fills the remaining first viewport below the reserved header area.
+   This creates the intended landing-screen effect without using fixed heights.
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  place-items: center;
+  min-block-size: calc(100svh - var(--header-reserved-height));
+  padding-block: clamp(3rem, 7vw, 6rem);
+  padding-inline: var(--section-inline-padding);
+}
+
+.hero__inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  inline-size: min(100%, 54rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__title {
+  margin: 0;
+}
+
+/*
+  The wordmark graphic itself is applied later as a CSS mask.
+  These dimensions give that future mask a predictable box to live in.
+*/
+.hero__wordmark {
+  display: block;
+  inline-size: min(82vw, 34rem);
+  block-size: clamp(4rem, 12vw, 7rem);
+}
+
+.hero__tagline {
+  max-inline-size: 48rem;
+  margin-block: 0;
+}
+
+.hero__announcement {
+  max-inline-size: 38rem;
+  margin-block: 0;
+}
+
+
+/* ==========================================================================
+   Homepage project section layout
+   --------------------------------------------------------------------------
+   The homepage cards are curated, not exhaustive.
+   They become two columns on wider screens and collapse to one column on narrow
+   screens.
+   ========================================================================== */
+
+.home-projects {
+  padding-block: var(--section-block-padding);
+  padding-inline: var(--section-inline-padding);
+  scroll-margin-block-start: calc(var(--header-reserved-height) + 1rem);
+}
+
+.home-projects__grid {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  max-inline-size: var(--content-max-width);
+  margin-inline: auto;
+}
+
+/* Wider screens get the locked two-card homepage layout. */
+@media (min-width: 52rem) {
+  .home-projects__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+
+/* ==========================================================================
+   Site footer layout
+   --------------------------------------------------------------------------
+   The footer contains:
+   - Return to top control
+   - Floating social panel
+   - Flag row
+   - Legal/copyright line
+   ========================================================================== */
+
+.site-footer {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  padding-block: clamp(2.5rem, 7vw, 4rem) clamp(1.5rem, 4vw, 2rem);
+  padding-inline: var(--section-inline-padding);
+}
+
+.return-to-top {
+  justify-self: center;
+}
+
+.footer-social {
+  inline-size: min(100%, 44rem);
+}
+
+/*
+  The flag row sits below the footer/social panel and above legal text.
+  These images are meaningful, not decorative, so the HTML should keep clear
+  alt text for each flag.
+*/
+.footer-flags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  max-inline-size: 100%;
+}
+
+.footer-flags img {
+  inline-size: clamp(3rem, 10vw, 4.5rem);
+  block-size: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  background: var(--color-surface);
+}
+
+.site-footer__legal {
+  margin-block: 0;
+  color: var(--color-text-soft);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   Mobile and narrow-screen layout adjustments
+   --------------------------------------------------------------------------
+   On narrow screens, the pull-tab metaphor will be softened by component CSS.
+   Here we reduce the reserved header space so the page does not feel top-heavy.
+   ========================================================================== */
+
+@media (max-width: 46rem) {
+  :root {
+    --header-bar-height: auto;
+    --header-tab-reserve: 0rem;
+    --header-reserved-height: auto;
+  }
+
+  .site-header {
+    min-block-size: auto;
+  }
+
+  .site-header::before {
+    block-size: 100%;
+  }
+
+  .site-header__bar {
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.75rem;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    inline-size: 100%;
+  }
+
+  .hero {
+    min-block-size: calc(100svh - 8rem);
+    padding-block: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .hero__wordmark {
+    inline-size: min(86vw, 28rem);
+    block-size: clamp(3.25rem, 16vw, 5.5rem);
+  }
+}
