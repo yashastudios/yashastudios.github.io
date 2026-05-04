@@ -474,6 +474,9 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
    --------------------------------------------------------------------------
    The panel floats like a card but has square top corners and rounded bottom
    corners, matching the locked design direction.
+
+   Return to top lives inside this panel so it feels like part of the footer
+   instead of a separate loose button above it.
    ========================================================================== */
 
 .footer-social {
@@ -540,9 +543,50 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   transform: translateY(-1px);
 }
 
+/*
+  Social icon images.
+  Most social icons are single-color SVGs, so dark mode needs a filter to keep
+  them readable when the source SVG is black.
+*/
 .footer-social__link img {
   inline-size: 2rem;
   block-size: 2rem;
+  transition: filter var(--transition-fast);
+}
+
+/*
+  In manual dark mode, invert plain black social icons so they read on dark
+  surfaces. Brand-color icons can opt out with .footer-social__icon--brand-color.
+*/
+html[data-theme="dark"] .footer-social__link img:not(.footer-social__icon--brand-color) {
+  filter: invert(1);
+}
+
+/*
+  If the visitor is using system dark mode without a manual saved theme,
+  keep monochrome social icons readable there too.
+*/
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .footer-social__link img:not(.footer-social__icon--brand-color) {
+    filter: invert(1);
+  }
+}
+
+/*
+  Brand-color icons should retain their original SVG colors in both themes.
+  Ko-fi should use this class.
+*/
+.footer-social__icon--brand-color {
+  filter: none;
+}
+
+/*
+  Return to top is incorporated into the footer panel rather than floating
+  above it.
+*/
+.footer-social__top-link {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 
@@ -594,7 +638,7 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     flex: 1 1 100%;
   }
 
-  .footer-social {
+    .footer-social {
     flex-direction: column;
     align-items: center;
   }
@@ -602,7 +646,10 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   .footer-social__list {
     justify-content: center;
   }
-}
+
+  .footer-social__top-link {
+    inline-size: 100%;
+  }
 
 
 /* ==========================================================================
