@@ -1,0 +1,179 @@
+/* ==========================================================================
+   Yasha Studios — Homepage Styles
+   --------------------------------------------------------------------------
+   This file contains homepage-only refinements:
+   - Hero typography and spacing
+   - Optional announcement styling
+   - Featured project section rhythm
+   - Homepage-specific responsive adjustments
+
+   Global defaults belong in base.css.
+   Site-wide layout belongs in layout.css.
+   Reusable components belong in components.css.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Hero section
+   --------------------------------------------------------------------------
+   The hero should feel calm, centered, and uncluttered.
+   The wordmark and locked tagline are the main event.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+}
+
+/*
+  Subtle background treatment:
+  enough visual interest to avoid feeling empty, but not enough to become
+  startup-gradient soup.
+*/
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      color-mix(in srgb, var(--color-accent) 16%, transparent),
+      transparent 34rem
+    );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+}
+
+.hero__wordmark {
+  margin-inline: auto;
+}
+
+.hero__tagline {
+  color: var(--color-text-muted);
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  font-weight: 550;
+  line-height: 1.45;
+}
+
+/*
+  Restrained announcement line.
+  This is optional content and can be removed from the HTML without harming
+  the hero layout.
+*/
+.hero__announcement {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 2.25rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  font-weight: 650;
+  box-shadow: var(--shadow-subtle);
+}
+
+.hero__continue {
+  margin-block-start: 0.35rem;
+}
+
+
+/* ==========================================================================
+   Featured projects section
+   --------------------------------------------------------------------------
+   The homepage project area is intentionally direct:
+   here are the main things, pick one.
+   ========================================================================== */
+
+.home-projects {
+  position: relative;
+}
+
+/*
+  A quiet separator between the landing hero and the project cards.
+  This gives the page structure without adding another section title.
+*/
+.home-projects::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 50%;
+  inline-size: min(12rem, 42vw);
+  block-size: 0.25rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  opacity: 0.72;
+  transform: translateX(-50%);
+}
+
+.home-projects__grid {
+  position: relative;
+}
+
+
+/* ==========================================================================
+   Homepage card refinements
+   --------------------------------------------------------------------------
+   Project cards are reusable components, but the homepage can tune their
+   minimum height and action placement for this two-card layout.
+   ========================================================================== */
+
+.home-projects .project-card {
+  min-block-size: clamp(27rem, 38vw, 31rem);
+}
+
+.home-projects .project-card__actions {
+  margin-block-start: 0.2rem;
+}
+
+
+/* ==========================================================================
+   Narrow-screen refinements
+   ========================================================================== */
+
+@media (max-width: 46rem) {
+  .hero::before {
+    background:
+      radial-gradient(
+        circle at 50% 30%,
+        color-mix(in srgb, var(--color-accent) 18%, transparent),
+        transparent 24rem
+      );
+  }
+
+  .hero__tagline {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+
+  .hero__announcement {
+    font-size: 0.86rem;
+  }
+
+  .home-projects .project-card {
+    min-block-size: auto;
+  }
+}
+
+
+/* ==========================================================================
+   Very narrow-screen refinements
+   --------------------------------------------------------------------------
+   This keeps the hero and cards from feeling cramped on odd little screens.
+   ========================================================================== */
+
+@media (max-width: 24rem) {
+  .hero__announcement {
+    display: block;
+    inline-size: 100%;
+  }
+
+  .hero__continue {
+    inline-size: 100%;
+  }
+}
