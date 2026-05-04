@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <!-- Basic page identity -->
+  <title>Yasha Studios</title>
+
+  <!-- Required for responsive layouts on mobile and narrow screens. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Yasha Studios is a portfolio for apps, tools, games, stories, and other suspiciously useful things that fill niches you didn't know existed."
+  >
+
+  <!-- Link preview / social sharing metadata -->
+  <meta property="og:title" content="Yasha Studios">
+  <meta
+    property="og:description"
+    content="A portfolio for apps, tools, games, stories, and other suspiciously useful things that fill niches you didn't know existed."
+  >
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/link-preview.png">
+  <meta property="og:url" content="https://yashastudios.com/">
+
+  <!-- Favicons and app icons -->
+  <link rel="icon" href="/assets/images/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch.png">
+
+  <!-- Site stylesheets.
+       These are split by responsibility so the code stays easier to edit later. -->
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/pages/home.css">
+
+  <!-- Tiny theme script for light/dark mode preference handling. -->
+  <script src="/assets/js/theme.js" defer></script>
+</head>
+
+<body id="top">
+  <!--
+    Skip link for keyboard and screen reader users.
+    This becomes visible when focused and jumps straight to the main content.
+  -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!--
+    Site header.
+    Desktop CSS will turn the main nav into the pull-tab design.
+    Mobile CSS will simplify the nav into clear text-based links.
+  -->
+  <header class="site-header" aria-label="Site header">
+    <div class="site-header__bar">
+      <!-- Compact brand mark for the header.
+           The visual monogram will be applied with CSS so it can inherit theme colors. -->
+      <a class="site-header__brand" href="/" aria-label="Yasha Studios home">
+        <span class="site-header__monogram" aria-hidden="true"></span>
+      </a>
+
+      <!-- Main navigation.
+           Keep this list short for the first version: Projects, Resources, About. -->
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul class="site-nav__list">
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/projects/">Projects</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/resources/">Resources</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="/about/">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!--
+        Theme toggle.
+        JavaScript will update aria-pressed and swap the active theme.
+      -->
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="Switch color theme"
+        aria-pressed="false"
+      >
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"></span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!--
+      Hero landing section.
+      This should remain calm and simple: wordmark, tagline, optional announcement,
+      and a continue button that jumps users down to the project cards.
+    -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__inner">
+        <h1 id="hero-title" class="hero__title">
+          <!--
+            The wordmark is handled as a CSS mask instead of a normal image
+            so it can inherit theme colors cleanly.
+          -->
+          <span class="hero__wordmark" role="img" aria-label="Yasha Studios"></span>
+
+          <!-- Backup text for assistive technology and non-visual contexts. -->
+          <span class="visually-hidden">Yasha Studios</span>
+        </h1>
+
+        <p class="hero__tagline">
+          A portfolio for apps, tools, games, stories, and other suspiciously useful things that fill niches you didn't know existed.
+        </p>
+
+        <!-- Optional restrained announcement line.
+             This can be removed later without breaking the hero layout. -->
+        <p class="hero__announcement">
+          Building useful little things with suspicious levels of care.
+        </p>
+
+        <a class="button button--primary hero__continue" href="#projects">
+          Continue to projects
+          <span class="button__icon button__icon--down" aria-hidden="true"></span>
+        </a>
+      </div>
+    </section>
+
+    <!--
+      Featured project cards.
+      The homepage is curated, not exhaustive.
+      Deeper project information will live on /projects/.
+    -->
+    <section id="projects" class="home-projects" aria-label="Featured projects">
+      <div class="home-projects__grid">
+        <!-- Featured project: Yasha Studios / site hub -->
+        <article class="project-card">
+          <div class="project-card__header">
+            <div class="project-card__icon" aria-hidden="true">
+              <img src="/assets/lucide-icons/globe.svg" alt="">
+            </div>
+
+            <p class="project-card__category">Website / Project Hub</p>
+          </div>
+
+          <div class="project-card__body">
+            <h2 class="project-card__title">YASHA / Yasha Studios</h2>
+
+            <p class="project-card__tagline">
+              The main home for Yasha Studios projects, tools, downloads, and resources.
+            </p>
+
+            <p class="project-card__description">
+              A calm front door for projects that deserve better than being tossed into the GitHub void with a lantern and a prayer.
+            </p>
+          </div>
+
+          <!-- Status badges use text first; color should only support the text. -->
+          <div class="project-card__meta" aria-label="Project metadata">
+            <p class="project-card__status">
+              <span class="status-badge">In Development</span>
+            </p>
+          </div>
+
+          <!-- Project actions should always be visible, never hover-only. -->
+          <div class="project-card__actions">
+            <a class="button button--primary" href="/projects/">
+              View Project
+            </a>
+
+            <!-- Placeholder repo link.
+                 Replace this with the real repository URL when ready. -->
+            <a class="button button--secondary" href="https://github.com/" rel="noopener noreferrer">
+              View Repo
+              <span class="button__icon button__icon--external" aria-hidden="true"></span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Featured project: YashaGet -->
+        <article class="project-card">
+          <div class="project-card__header">
+            <div class="project-card__icon" aria-hidden="true">
+              <img src="/assets/lucide-icons/download.svg" alt="">
+            </div>
+
+            <p class="project-card__category">App / Download Tool</p>
+          </div>
+
+          <div class="project-card__body">
+            <h2 class="project-card__title">YashaGet</h2>
+
+            <p class="project-card__tagline">
+              A focused downloader utility with a cleaner experience than copy-paste chaos.
+            </p>
+
+            <p class="project-card__description">
+              Built for the kind of download workflow where a tiny tray goblin may eventually become both necessary and emotionally correct.
+            </p>
+          </div>
+
+          <!-- Status badges use text first; color should only support the text. -->
+          <div class="project-card__meta" aria-label="Project metadata">
+            <p class="project-card__status">
+              <span class="status-badge">Prototype</span>
+            </p>
+          </div>
+
+          <!-- Project actions should always be visible, never hover-only. -->
+          <div class="project-card__actions">
+            <a class="button button--primary" href="/projects/">
+              View Project
+            </a>
+
+            <!-- Placeholder repo link.
+                 Replace this with the real repository URL when ready. -->
+            <a class="button button--secondary" href="https://github.com/" rel="noopener noreferrer">
+              View Repo
+              <span class="button__icon button__icon--external" aria-hidden="true"></span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!--
+    Site footer.
+    Contains the return-to-top control, social panel, flag row, and legal text.
+  -->
+  <footer class="site-footer">
+    <!-- Footer-level page movement control.
+         This avoids an intrusive floating button while still making return navigation easy. -->
+    <a class="return-to-top" href="#top">
+      Return to top
+      <span class="return-to-top__icon" aria-hidden="true"></span>
+    </a>
+
+    <!--
+      Footer social panel.
+      Icons are visually icon-only, but each link still needs an accessible label.
+    -->
+    <div class="footer-social" aria-label="Yasha Studios social links">
+      <a class="footer-social__brand" href="/" aria-label="Yasha Studios home">
+        <span class="footer-social__monogram" aria-hidden="true"></span>
+      </a>
+
+      <!--
+        Social links.
+        These are placeholders until final URLs are chosen.
+        Remove any platform that will not be used before launch.
+      -->
+      <ul class="footer-social__list">
+        <li>
+          <a class="footer-social__link" href="#" aria-label="Bluesky">
+            <img src="/assets/social-icons/bluesky.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="footer-social__link" href="#" aria-label="Discord">
+            <img src="/assets/social-icons/discord.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="footer-social__link" href="#" aria-label="GitHub">
+            <img src="/assets/social-icons/github.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="footer-social__link" href="#" aria-label="itch.io">
+            <img src="/assets/social-icons/itchio.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="footer-social__link" href="#" aria-label="Ko-fi">
+            <img src="/assets/social-icons/kofi.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="footer-social__link" href="#" aria-label="YouTube">
+            <img src="/assets/social-icons/youtube.svg" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!--
+      Values/identity flag row.
+      These flags are meaningful content, so each image uses descriptive alt text.
+    -->
+    <div class="footer-flags" aria-label="Flags">
+      <img src="/assets/flag-icons/ukrainian-flag.svg" alt="Ukrainian flag">
+      <img src="/assets/flag-icons/transgender-pride-flag.svg" alt="Transgender pride flag">
+      <img src="/assets/flag-icons/philadelphia-pride-flag.svg" alt="Philadelphia pride flag">
+    </div>
+
+    <!-- Legal text can be refined later. -->
+    <p class="site-footer__legal">
+      &copy; 2026 Yasha Studios. All rights reserved unless otherwise stated.
+    </p>
+  </footer>
+</body>
+</html>
